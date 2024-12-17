@@ -6,11 +6,12 @@ server: Server.c
 client: Client.c
 	gcc Client.c -o client
 
-testS:
-	./server
+run: server client
+	./server & ./client < in > out
 
-testC:
-	./client < in > out
+test: out ans
+	cat out
+	diff -s out ans
 
 clean:
 	rm -f server client

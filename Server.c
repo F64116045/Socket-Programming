@@ -70,8 +70,15 @@ int main(int argc, char const* argv[])
 
             sprintf(buffer, "%d\n", result);
             send(new_socket, buffer, strlen(buffer), 0);
+        }else if(strncmp(buffer, "mul", 3) == 0){
+            int a, b, result;
+            sscanf(buffer, "mul %d %d", &a, &b);
+            result = a * b;
+
+            sprintf(buffer, "%d\n", result);
+            send(new_socket, buffer, strlen(buffer), 0);
         } else {
-            sprintf(buffer, "Unsupported command\n");
+            sprintf(buffer, "Hello\n");
             send(new_socket, buffer, strlen(buffer), 0);
         }
     }

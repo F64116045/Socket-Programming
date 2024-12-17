@@ -30,7 +30,7 @@ int main(int argc, char const* argv[]) {
         printf("\nConnection Failed \n");
         return -1;
     }
-
+    sleep(3);
     // 從檔案讀取命令
     FILE *fp = fopen("in", "r");
     if (fp == NULL) {
@@ -42,7 +42,6 @@ int main(int argc, char const* argv[]) {
     while (fgets(input, sizeof(input), fp) != NULL) { // 從檔案逐行讀取
         send(client_fd, input, strlen(input), 0); // 發送給伺服器
 
-        // 如果命令是 "kill"，結束循環
         if (strncmp(input, "kill", 4) == 0) {
             break;
         }
@@ -50,10 +49,10 @@ int main(int argc, char const* argv[]) {
         // 等待伺服器的回應
         valread = read(client_fd, buffer, sizeof(buffer) - 1);
         buffer[valread] = '\0';
-        printf("%s", buffer); // 印出回應
+        printf("%s", buffer);
     }
 
-    fclose(fp); // 關閉檔案
+    fclose(fp);
     close(client_fd); 
     return 0;
 }
