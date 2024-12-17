@@ -1,6 +1,17 @@
-all:
-	gcc Client.c -o client
+all: server client
+
+server: Server.c
 	gcc Server.c -o server
 
-run_client: client
-	./client
+client: Client.c
+	gcc Client.c -o client
+
+testS:
+	./server
+
+testC:
+	./client < in > out
+
+clean:
+	rm -f server client
+	rm -f out

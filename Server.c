@@ -54,9 +54,7 @@ int main(int argc, char const* argv[])
         valread = read(new_socket, buffer, 1024 - 1);
         buffer[valread] = '\0';
 
-        // 處理 "kill" 指令
         if (strncmp(buffer, "kill", 4) == 0) {
-            printf("Server shutting down...\n");
             break;
         }
         if (strncmp(buffer, "abs", 3) == 0){
