@@ -10,7 +10,7 @@ int main(int argc, char const* argv[]) {
     struct sockaddr_in serv_addr;
     char buffer[1024] = {0};
 
-    // Socket 創建
+    // 創建Socket
     if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("\n Socket creation error \n");
         return -1;
@@ -20,7 +20,7 @@ int main(int argc, char const* argv[]) {
     serv_addr.sin_port = htons(PORT);
 
     // 設定伺服器地址
-    if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0) {
+    if (inet_pton(serv_addr.sin_family, "127.0.0.1", &serv_addr.sin_addr) <= 0) {
         printf("\nInvalid address/ Address not supported \n");
         return -1;
     }
@@ -30,7 +30,11 @@ int main(int argc, char const* argv[]) {
         printf("\nConnection Failed \n");
         return -1;
     }
+
+
     sleep(3);
+
+
     // 從檔案讀取命令
     FILE *fp = fopen("in", "r");
     if (fp == NULL) {
